@@ -1,14 +1,19 @@
 package edu.nik;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
-public class CarF1 implements Drawable {
+public class CarF1 extends WheelArc implements Drawable {
     private int x;
     private final int y;
+    private int wheelAngle;
+
 
     public CarF1(int y) {
+        super(0, 500, 5);
         this.x = 0;
         this.y = y;
+        this.wheelAngle = 0;
     }
 
     @Override
@@ -19,7 +24,7 @@ public class CarF1 implements Drawable {
         g.setColor(new Color(0xBE0606));
         g.fillPolygon(xPoints, yPoints, 3);
 
-        //кузов
+        //кузов (а чо не багажник)
         g.setColor(new Color(0xF98E1D));
         g.fillRect(this.x + 100, this.y, 400, 75);
 
@@ -42,9 +47,14 @@ public class CarF1 implements Drawable {
         g.setColor(new Color(1));
         g.fillOval(this.x + 70, this.y - 20, 120, 120);
 
+
         //переднее колесо
         g.setColor(new Color(1));
         g.fillOval(this.x + 470, this.y, 100, 100);
+
+
+        //арки
+        paintComponent(g);
 
         //задний диск
         g.setColor(new Color(255, 255, 255));
@@ -57,5 +67,22 @@ public class CarF1 implements Drawable {
 
     public void setX(int x) {
         this.x = x;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        wheelAngle -= 1;
+        repaint();
+    }
+
+    //вращение колес
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        g.setColor(new Color(0xBE0606));
+
+        g.fillArc(this.x + 470, this.y, 100, 100, wheelAngle, 45); // Дуга на переднем колесе
+        g.fillArc(this.x + 70, this.y - 20, 120, 120, wheelAngle, 45); // Дуга на заднем колесе
     }
 }

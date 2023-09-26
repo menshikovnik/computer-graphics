@@ -1,9 +1,10 @@
 package edu.nik;
 
 import javax.swing.*;
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         MainWindow window = new MainWindow();
         window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         window.setTitle("Car on the Landscape");
